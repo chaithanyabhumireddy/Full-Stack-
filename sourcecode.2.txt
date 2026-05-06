@@ -1,0 +1,144 @@
+\section{SOURCE CODE IMPLEMENTATION}
+
+\linespread{1.2}
+
+% ---------------- LOGIN PAGE ----------------
+\subsection{Login Page}
+
+{\tiny
+\begin{verbatim}
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login - Job Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container page-grid">
+    <header>
+        <div>
+            <h1>Job Portal</h1>
+            <p>Login to manage job applications, post roles, or browse jobs.</p>
+        </div>
+        <nav>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/register}">Register</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h1>Welcome back</h1>
+            <p>Sign in to continue your journey.</p>
+        </div>
+    </section>
+
+    <section class="auth-form">
+        <h1>Sign In</h1>
+        <form method="post" th:action="@{/login}">
+            <label>Username</label>
+            <input type="text" name="username" required />
+
+            <label>Password</label>
+            <input type="password" name="password" required />
+
+            <button type="submit">Sign In</button>
+        </form>
+
+        <p>Don't have an account? <a th:href="@{/register}">Register</a></p>
+
+        <div th:if="${param.error}">Invalid username or password</div>
+        <div th:if="${param.logout}">Logged out successfully</div>
+        <div th:if="${param.registered}">Registration successful</div>
+    </section>
+</div>
+</body>
+</html>
+\end{verbatim}
+}
+
+% ---------------- DASHBOARD ----------------
+\subsection{Student Dashboard}
+
+{\tiny
+\begin{verbatim}
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container page-grid">
+    <header>
+        <h1>Student Dashboard</h1>
+        <nav>
+            <a th:href="@{/}">Browse Jobs</a>
+            <a th:href="@{/applications}">My Applications</a>
+            <a th:href="@{/profile}">Profile</a>
+            <a th:href="@{/logout}">Logout</a>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Available Jobs</h2>
+
+        <div th:each="job : ${jobs}">
+            <h3 th:text="${job.title}"></h3>
+            <p th:text="${job.description}"></p>
+            <p><strong>Location:</strong> <span th:text="${job.location}"></span></p>
+            <p><strong>Employer:</strong> <span th:text="${job.employer.fullName}"></span></p>
+
+            <form th:action="@{'/jobs/' + ${job.id} + '/apply'}" method="post">
+                <button type="submit">Apply Now</button>
+            </form>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+\end{verbatim}
+}
+
+% ---------------- APPLICATION PAGE ----------------
+\subsection{Application Tracking Page}
+
+{\tiny
+\begin{verbatim}
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>My Applications</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container page-grid">
+    <header>
+        <h1>My Applications</h1>
+        <nav>
+            <a th:href="@{/dashboard}">Dashboard</a>
+            <a th:href="@{/profile}">Profile</a>
+            <a th:href="@{/logout}">Logout</a>
+        </nav>
+    </header>
+
+    <section>
+        <div th:if="${applications.isEmpty()}">
+            No applications yet.
+        </div>
+
+        <div th:each="app : ${applications}">
+            <h3 th:text="${app.job.title}"></h3>
+            <p><strong>Employer:</strong> <span th:text="${app.job.employer.fullName}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${app.status}"></span></p>
+            <p><strong>Applied On:</strong> <span th:text="${app.appliedAt}"></span></p>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+\end{verbatim}
+}
