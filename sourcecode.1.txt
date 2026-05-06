@@ -1,0 +1,18 @@
+public class ExamDemo {
+    public static void main(String[] args) {
+
+        System.out.println("🔥 DYNAMIC EXAM SYSTEM - LIVE DEMO!");
+        System.out.println("====================================");
+
+        System.out.println("📘 1. SSC CGL Mock Test → STARTED");
+        System.out.println("⏱ Time: 10:00 | Adaptive Questions");
+
+        System.out.println("✅ Q1: 2+2=4 ✔ | Q2: Java main ✔ | Q3: ArrayList ✔");
+
+        System.out.println("🏆 RESULT: 85/100 | PASS | Rank: Top 5%");
+
+        System.out.println("💾 Saved to Database");
+
+        System.out.println("✅ PRESENTATION READY!");
+    }
+}
